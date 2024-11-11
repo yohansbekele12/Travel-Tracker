@@ -36,6 +36,7 @@ app.get("/", async (req, res) => {
     country_code.push(country.country_code);
   });
 
+  console.log(country_code);
   total = data.length;
 
   // rendern the result
@@ -43,14 +44,14 @@ app.get("/", async (req, res) => {
 });
 
 //post route qurey data from countries Db using user inpute
-let test = "".toLowerCase;
+let test = "";
 app.post("/add", async (req, res) => {
-  const input = req.body["country"]; //access property of inpute
+  const input = req.body["country"].toLowerCase(); //access property of inpute
 
   // query countries DB for country code
   const result = await db.query(
     "SELECT country_code FROM countries WHERE country_name =$1",
-    [input.toLowerCase()]
+    [input]
   );
   const data = result.rows;
   if (data.length !== 0) {
